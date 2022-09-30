@@ -7,7 +7,9 @@ const vaciarCarrito = document.querySelector("#vaciar-carrito");
 
 const agregarCurso = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    if( e.target.classList.contains("agregar-carrito")){
+        console.log("Presionaste el botón.");
+    }
 }
 
 
