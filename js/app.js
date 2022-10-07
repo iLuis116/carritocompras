@@ -43,7 +43,7 @@ const agregarCarrito = curso => {
         listadoCarrito = [...listadoCarrito, curso];
     }
         //listadoCarrito = [...listadoCarrito, curso]
-        
+
     console.log(listadoCarrito);
     generarHTML();
 }
@@ -59,6 +59,9 @@ const generarHTML = () =>{
         <td>${curso.nombre}</td>
         <td>${curso.precio}</td>
         <td>${curso.cantidad}</td>
+        <td>
+            <a href='#' class='borrar-curso' data-id=${curso.id}>x</a>
+        </td>
         `;
         row.innerHTML = cursoHTML;
         contenedorCarrito.appendChild(row);
@@ -69,8 +72,22 @@ const vaciarCarrito = () => {
     contenedorCarrito.innerHTML = '';
 }
 
+const eliminarCurso = (e) => {
+    e.preventDefault();
+    if(e.target.classList.contains('borrar-curso')){
+        let idCurso = e.target.getAttribute('data-id')
+        let carrito = listadoCarrito.filter(cursoInCarrito => cursoInCarrito.id !== idCurso)
+        listadoCarrito = [...carrito];
+        generarHTML();
+    }
+}
+
 const cargarEventListiner = () => {
     //funciones
-    listaCursos.addEventListener("click", agregarCurso);
+    listaCursos.addEventListener('click', agregarCurso);
+
+    contenedorCarrito.addEventListener('click', eliminarCurso);
+
+    BTNvaciarCarrito.addEventListener('click', vaciarCarrito);
 }
 cargarEventListiner();
